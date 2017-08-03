@@ -1,0 +1,27 @@
+- content_for(:page_header) do
+  = "List of payments"
+- content_for :panel_heading do
+  Content
+%p#notice= notice
+%table#payments.display.table{:cellspacing => "0", :width => "100%"}
+  %thead
+    %tr
+      %th Amount (USD)
+      %th Date
+      %th Invoice
+      %th
+  %tbody
+    - @payments.each do |payment|
+      %tr
+        %td= payment.amount
+        %td= payment.date
+        %td= payment.invoice_id
+        %td.action-buttons
+          = link_to 'Show', payment, class: 'btn btn-success'
+          = link_to 'Edit', edit_payment_path(payment), class: 'btn btn-primary'
+          = link_to 'Destroy', payment, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger'
+- content_for(:extra_scripts) do
+  :javascript
+    $(document).ready(function() {
+      $('#payments').DataTable({ responsive: true });
+    });

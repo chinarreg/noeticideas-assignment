@@ -1,5 +1,5 @@
 class InvoicesController < ApplicationController
-  before_action :authenticate_user!
+  skip_before_filter :authenticate_user!, if: :json_request?
   before_action :set_invoice, only: [:show, :edit, :update, :destroy]
 
   # GET /invoices
@@ -71,5 +71,9 @@ class InvoicesController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def invoice_params
       params.require(:invoice).permit(:number, :amount, :date, :to_address, :from_address, :notes)
+    end
+
+    def json_request?
+      request.format.json?
     end
 end

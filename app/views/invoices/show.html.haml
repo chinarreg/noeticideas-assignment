@@ -1,0 +1,19 @@
+%p#notice= notice
+%p
+  %strong Number:
+  = @invoice.number
+%p
+  %strong Amount (GBP):
+  = get_converted_amount(@invoice.amount)
+%p
+  %strong Date:
+  = @invoice.date
+%p
+  %strong To address:
+  = @invoice.to_address
+%p
+  %strong From address:
+  = @invoice.from_address
+%p
+  %strong Notes:
+  = @invoice.notes

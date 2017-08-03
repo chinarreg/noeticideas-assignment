@@ -1,0 +1,34 @@
+- content_for(:page_header) do
+  = "List of invoices"
+- content_for :panel_heading do
+  Content
+%p#notice= notice
+
+%table#invoices.display.table{:cellspacing => "0", :width => "100%"}
+  %thead
+    %tr
+      %th Number
+      %th Amount (GBP)
+      %th Date
+      %th To address
+      %th From address
+      %th Notes
+      %th
+  %tbody
+    - @invoices.each do |invoice|
+      %tr
+        %td= invoice.number
+        %td= get_converted_amount(invoice.amount)
+        %td= invoice.date
+        %td= invoice.to_address
+        %td= invoice.from_address
+        %td= invoice.notes
+        %td.action-buttons
+          = link_to 'Show', invoice, class: 'btn btn-success'
+          = link_to 'Edit', edit_invoice_path(invoice), class: 'btn btn-primary'
+          = link_to 'Destroy', invoice, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger'
+- content_for(:extra_scripts) do
+  :javascript
+    $(document).ready(function() {
+      $('#invoices').DataTable({ responsive: true });
+    });

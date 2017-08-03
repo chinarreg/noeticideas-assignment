@@ -1,0 +1,35 @@
+= form_for(@invoice) do |f|
+  - if @invoice.errors.any?
+    #error_explanation
+      %h2
+        = pluralize(invoice.errors.count, "error")
+        prohibited this invoice from being saved:
+      %ul
+        - invoice.errors.full_messages.each do |message|
+          %li= message
+  .form-group
+    = f.label :number
+    %br
+    = f.number_field :number, class: 'form-control', placeholder: 'Enter number...'
+  .form-group
+    = f.label :amount
+    %br
+    = f.text_field :amount, class: 'form-control', placeholder: 'Enter amount (USD)...'
+  .form-group
+    = f.label :date
+    %br
+    = f.text_field :date, class: 'form-control', placeholder: 'Enter date...', data: {provide: 'datepicker', "date-format": "yyyy-dd-mm"}
+  .form-group
+    = f.label :to_address
+    %br
+    = f.text_area :to_address, class: 'form-control', placeholder: 'Enter to address...'
+  .form-group
+    = f.label :from_address
+    %br
+    = f.text_area :from_address, class: 'form-control', placeholder: 'Enter from address...'
+  .form-group
+    = f.label :notes
+    %br
+    = f.text_area :notes, class: 'form-control', placeholder: 'Enter notes...'
+  .actions.form-group
+    = f.submit 'Save', :class => 'btn btn-lg btn-success btn-block'
